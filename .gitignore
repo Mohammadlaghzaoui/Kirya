@@ -22,3 +22,8 @@ Thumbs.db
 .env
 *.env.local
 lib/firebase_options.dart
+
+# Preview tooling (puppeteer)
+preview/node_modules/
+preview/package-lock.json
+preview/package.json
