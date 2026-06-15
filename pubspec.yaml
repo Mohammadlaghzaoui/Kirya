@@ -20,7 +20,7 @@ dependencies:
   go_router: ^14.2.0
 
   # Localization helpers
-  intl: ^0.19.0
+  intl: ^0.20.2
 
   # UI / utilities
   google_fonts: ^6.2.1
