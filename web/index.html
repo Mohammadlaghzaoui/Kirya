@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description"
+        content="Kirya — La plateforme intelligente pour les sociétés de location de véhicules. Gérez votre flotte, automatisez vos locations et offrez une expérience premium.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Kirya">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Kirya — Premium Vehicle Rental Platform</title>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Stripe.js — required for redirectToCheckout when using a publishable key + price IDs.
+       Replace with a real <script src="https://js.stripe.com/v3/"></script> in production. -->
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <style>
+    body { background-color: #FCFCFC; }
+    .kirya-splash {
+      position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: #0E0E0D;
+    }
+    .kirya-splash span {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 28px; letter-spacing: 6px; color: #CAAE65; font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <div class="kirya-splash" id="kirya-splash"><span>KIRYA</span></div>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
