@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kirya — Aperçu / Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --black:#0E0E0D; --charcoal:#1A1A18; --gold:#CAAE65; --soft-gold:#E6D89A;
+    --dark-gold:#A5955D; --teal:#5C998D; --deep-teal:#315451; --mint:#AAD0AD;
+    --grey:#EDEDED; --bg:#FCFCFC; --muted:#9FA19E; --danger:#C0564B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--black);line-height:1.6}
+  body.rtl{font-family:'Tajawal','Inter',sans-serif;direction:rtl}
+  h1,h2,h3,h4{font-family:'Poppins',sans-serif;line-height:1.1}
+  body.rtl h1,body.rtl h2,body.rtl h3,body.rtl h4{font-family:'Tajawal',sans-serif}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:14px 24px;border-radius:16px;
+    font-weight:600;font-size:14px;border:none;cursor:pointer;transition:.2s;white-space:nowrap}
+  .btn-primary{background:var(--teal);color:#fff}
+  .btn-primary:hover{background:var(--deep-teal)}
+  .btn-gold{background:linear-gradient(135deg,var(--soft-gold),var(--gold),var(--dark-gold));color:var(--black)}
+  .btn-outline{background:transparent;color:var(--black);border:1.4px solid var(--black)}
+  .btn-ghost{background:rgba(92,153,141,.12);color:var(--deep-teal)}
+  .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;
+    font-size:12px;font-weight:700;letter-spacing:.4px}
+  .badge-gold{background:rgba(230,216,154,.5);color:var(--dark-gold)}
+  .badge-success{background:rgba(170,208,173,.45);color:var(--deep-teal)}
+  .eyebrow{display:inline-block;padding:7px 14px;border-radius:999px;background:rgba(202,174,101,.14);
+    color:var(--dark-gold);font-size:12px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase}
+  .card{background:#fff;border:1px solid var(--grey);border-radius:24px;padding:24px;
+    box-shadow:0 10px 22px rgba(0,0,0,.06);transition:.25s}
+  .card.hover:hover{transform:translateY(-6px);box-shadow:0 16px 36px rgba(0,0,0,.14)}
+  .card-dark{background:var(--charcoal);color:#fff;border:1px solid rgba(255,255,255,.06)}
+  .section{padding:80px 0}
+  .center{text-align:center}
+  .muted{color:var(--muted)}
+
+  /* Navbar */
+  nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--grey)}
+  nav .wrap{display:flex;align-items:center;height:76px;gap:18px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Poppins';font-weight:700;font-size:22px}
+  .logo .mark{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--soft-gold),var(--gold),var(--dark-gold));
+    color:var(--black);font-weight:800;box-shadow:0 4px 12px rgba(202,174,101,.35)}
+  .nav-links{display:flex;gap:6px;margin-inline-start:auto;align-items:center}
+  .nav-links a{padding:8px 12px;font-size:14.5px;font-weight:500;border-radius:8px}
+  .nav-links a:hover{color:var(--deep-teal)}
+  .lang{position:relative}
+  .lang select{appearance:none;border:1px solid var(--grey);background:rgba(237,237,237,.6);
+    padding:9px 30px 9px 14px;border-radius:999px;font-weight:600;font-size:13px;cursor:pointer}
+  @media(max-width:980px){.nav-links a.navlink{display:none}}
+
+  /* Hero */
+  .hero{background:linear-gradient(180deg,#FCFCFC,#F2F2EF);padding:80px 0}
+  .hero-grid{display:grid;grid-template-columns:5fr 5fr;gap:48px;align-items:center}
+  .hero h1{font-size:52px;font-weight:800;margin:22px 0 20px}
+  .hero p.sub{font-size:18px;color:var(--muted);max-width:520px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin:30px 0 26px}
+  .b2c-note{display:flex;gap:12px;background:rgba(170,208,173,.25);border:1px solid rgba(92,153,141,.3);
+    border-radius:14px;padding:16px;max-width:520px;color:var(--deep-teal);font-size:14.5px}
+  .trust{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:56px}
+  .trust .item{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--grey);
+    border-radius:999px;padding:12px 18px;font-weight:600;font-size:13.5px;box-shadow:0 4px 12px rgba(0,0,0,.04)}
+  .trust .item .ic{color:var(--deep-teal)}
+  /* dashboard mock */
+  .dash{background:var(--charcoal);border-radius:24px;padding:22px;color:#fff;box-shadow:0 20px 40px rgba(0,0,0,.25)}
+  .dash-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .dash-head .ic{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--soft-gold),var(--gold));color:var(--black)}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:16px}
+  .stat .lbl{color:rgba(255,255,255,.6);font-size:12px}
+  .stat .val{font-family:'Poppins';font-size:26px;font-weight:700;margin-top:8px}
+  .stat .tr{color:var(--mint);font-size:12px;font-weight:600;margin-top:4px}
+  .chart{display:flex;align-items:flex-end;gap:8px;height:92px;background:rgba(255,255,255,.05);
+    border-radius:14px;padding:16px;margin-top:14px}
+  .chart .bar{flex:1;border-radius:6px}
+
+  /* Feature grid */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+  .feature .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+    background:rgba(92,153,141,.12);color:var(--teal);font-size:20px;margin-bottom:16px}
+  .note-dark{display:flex;gap:14px;background:var(--charcoal);color:rgba(255,255,255,.75);
+    border-radius:16px;padding:20px;margin-top:36px}
+  .note-dark .ic{color:var(--gold)}
+
+  /* B2C dark */
+  .dark-sec{background:linear-gradient(135deg,var(--charcoal),var(--black));color:#fff}
+  .b2c-grid{display:grid;grid-template-columns:5fr 6fr;gap:48px;align-items:flex-start}
+  .b2c-list{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .b2c-item{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:16px;font-size:14px}
+  .b2c-item .ic{color:var(--mint)}
+
+  /* Packages */
+  .toggle{display:inline-flex;background:rgba(237,237,237,.7);border-radius:999px;padding:5px;margin:0 auto}
+  .toggle button{border:none;background:transparent;color:var(--muted);font-weight:600;font-size:14px;
+    padding:11px 26px;border-radius:999px;cursor:pointer}
+  .toggle button.active{background:var(--black);color:#fff}
+  .pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin-top:40px}
+  .price{font-family:'Poppins';font-size:42px;font-weight:800}
+  .feat-line{display:flex;gap:10px;align-items:flex-start;padding:5px 0}
+  .feat-line .ic{color:var(--teal)}
+  .card-dark .feat-line .ic{color:var(--mint)}
+
+  /* FAQ */
+  .faq{max-width:880px;margin:0 auto}
+  .faq-item{border:1px solid var(--grey);border-radius:24px;background:#fff;margin-bottom:14px;overflow:hidden}
+  .faq-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;
+    cursor:pointer;font-family:'Poppins';font-weight:600}
+  .faq-a{max-height:0;overflow:hidden;transition:.3s;color:var(--muted);padding:0 24px}
+  .faq-item.open .faq-a{max-height:200px;padding:0 24px 20px}
+  .faq-item.open .faq-q{color:var(--deep-teal)}
+
+  /* Contact */
+  .contact-grid{display:grid;grid-template-columns:4fr 6fr;gap:48px;align-items:start}
+  .field label{display:block;font-weight:600;font-size:14px;margin-bottom:8px}
+  .field input,.field textarea{width:100%;border:1.2px solid var(--grey);border-radius:16px;
+    padding:14px 16px;font-family:inherit;font-size:14px;background:#fff}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--teal)}
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .cline{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+  .cline .ic{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;
+    background:rgba(92,153,141,.12);color:var(--deep-teal)}
+
+  /* Footer */
+  footer{background:var(--black);color:#fff;padding:56px 0}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:24px}
+  .foot-col h4{color:var(--gold);font-size:14px;margin-bottom:16px;font-family:'Poppins';font-weight:600}
+  .foot-col a{display:block;color:rgba(255,255,255,.7);font-size:14px;margin-bottom:12px}
+  .foot-bottom{display:flex;justify-content:space-between;margin-top:40px;padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.5);font-size:13px}
+
+  .preview-banner{background:var(--deep-teal);color:#fff;text-align:center;padding:10px;font-size:13px}
+  .sec-head{max-width:760px;margin:0 auto 44px}
+  .sec-head h2{font-size:38px;font-weight:700;margin:18px 0 16px}
+
+  @media(max-width:880px){
+    .hero-grid,.b2c-grid,.contact-grid,.pkg-grid,.foot-grid{grid-template-columns:1fr}
+    .grid3,.grid4{grid-template-columns:1fr 1fr}
+    .b2c-list{grid-template-columns:1fr}
+    .hero h1{font-size:36px}.sec-head h2{font-size:28px}
+    .foot-bottom{flex-direction:column;gap:8px}
+  }
+  @media(max-width:560px){.grid3,.grid4,.frow{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="preview-banner" data-i="previewNote">Aperçu statique HTML de l'interface Flutter Web Kirya — change de langue en haut à droite (essaie العربية pour le RTL).</div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="mark">K</span> Kirya</div>
+    <div class="nav-links">
+      <a class="navlink" data-i="navCompanies">Sociétés</a>
+      <a class="navlink" data-i="navCustomers">Particuliers</a>
+      <a class="navlink" data-i="navPackages">Formules</a>
+      <a class="navlink" data-i="navFeatures">Fonctionnalités</a>
+      <a class="navlink" data-i="navFaq">FAQ</a>
+      <span class="lang">
+        <select id="langSel">
+          <option value="fr">🇫🇷 FR</option>
+          <option value="nl">🇳🇱 NL</option>
+          <option value="en">🇬🇧 EN</option>
+          <option value="de">🇩🇪 DE</option>
+          <option value="it">🇮🇹 IT</option>
+          <option value="ar">🇸🇦 AR</option>
+        </select>
+      </span>
+      <a class="btn btn-outline" data-i="navLogin">Connexion</a>
+      <a class="btn btn-primary" data-i="navStart">Commencer</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="badge badge-gold" data-i="heroBadge">★ Plateforme de gestion de flotte</span>
+        <h1 data-i="heroTitle">La plateforme intelligente pour les sociétés de location de véhicules</h1>
+        <p class="sub" data-i="heroSub">Gérez votre flotte, automatisez vos locations et donnez à vos clients une expérience simple, sûre et transparente.</p>
+        <div class="cta-row">
+          <button class="btn btn-primary" data-i="heroCta1">Découvrir les solutions B2B</button>
+          <button class="btn btn-outline" data-i="heroCta2">Voir les formules</button>
+        </div>
+        <div class="b2c-note"><span>👤</span><span data-i="heroB2c">Pour les particuliers, l'application permet de louer un véhicule facilement, en toute sécurité et avec des prix transparents.</span></div>
+      </div>
+      <div>
+        <div class="dash">
+          <div class="dash-head"><span class="ic">▦</span><strong data-i="dashTitle">Tableau de bord flotte</strong>
+            <span class="badge badge-success" style="margin-inline-start:auto">● Live</span></div>
+          <div class="stat-grid">
+            <div class="stat"><div class="lbl" data-i="dashVeh">Véhicules actifs</div><div class="val">142</div><div class="tr">▲ +8%</div></div>
+            <div class="stat"><div class="lbl" data-i="dashBook">Réservations</div><div class="val">87</div><div class="tr">▲ +12%</div></div>
+            <div class="stat"><div class="lbl" data-i="dashRev">Revenus</div><div class="val">€38.4k</div><div class="tr">▲ +5%</div></div>
+            <div class="stat"><div class="lbl" data-i="dashUti">Utilisation</div><div class="val">78%</div><div class="tr">▲ +3%</div></div>
+          </div>
+          <div class="chart" id="chart"></div>
+        </div>
+      </div>
+    </div>
+    <div class="trust">
+      <div class="item"><span class="ic">🛡</span><span data-i="trust1">Paiement sécurisé</span></div>
+      <div class="item"><span class="ic">✓</span><span data-i="trust2">Sociétés vérifiées</span></div>
+      <div class="item"><span class="ic">📱</span><span data-i="trust3">Gestion digitale</span></div>
+      <div class="item"><span class="ic">🎧</span><span data-i="trust4">Support professionnel</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- B2B -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow" data-i="b2bEye">Pour les sociétés de location</span>
+      <h2 data-i="b2bTitle">Gérez votre activité de location de manière plus professionnelle</h2>
+      <p class="muted" data-i="b2bSub">Kirya réunit votre flotte, vos réservations et vos clients dans un seul portail digital, conçu pour les professionnels de la mobilité.</p>
+    </div>
+    <div class="grid3" id="b2bGrid"></div>
+    <div class="note-dark"><span class="ic">🔒</span><span data-i="b2bNote">Cette page présente uniquement les fonctionnalités. L'ensemble des outils est disponible dans le portail protégé après abonnement.</span></div>
+  </div>
+</section>
+
+<!-- B2C -->
+<section class="section dark-sec">
+  <div class="wrap">
+    <div class="b2c-grid">
+      <div>
+        <span class="eyebrow" data-i="b2cEye">Pour les particuliers</span>
+        <h2 style="color:#fff;font-size:36px;margin:18px 0 16px" data-i="b2cTitle">Louez un véhicule en toute confiance</h2>
+        <p style="color:rgba(255,255,255,.7)" data-i="b2cSub">L'application Kirya est gratuite pour les particuliers. Trouvez une voiture, réservez en ligne et profitez de prix transparents auprès de sociétés vérifiées.</p>
+        <div style="margin:20px 0"><span class="badge badge-success" data-i="b2cFree">✓ 100% gratuit pour les particuliers</span></div>
+        <div class="cta-row">
+          <button class="btn btn-gold" data-i="b2cCta1">Créer un compte gratuit</button>
+          <button class="btn btn-ghost" data-i="b2cCta2">Découvrir l'application</button>
+        </div>
+      </div>
+      <div class="b2c-list" id="b2cList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="section">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow" data-i="pkgEye">Formules B2B</span>
+      <h2 data-i="pkgTitle">Choisissez la formule adaptée à votre société</h2>
+      <p class="muted" data-i="pkgSub">Des prix transparents. Annulez à tout moment. Accès immédiat au portail après paiement.</p>
+    </div>
+    <div class="center"><div class="toggle">
+      <button id="tgMonthly" class="active" data-i="pkgMonthly">Mensuel</button>
+      <button id="tgYearly" data-i="pkgYearly">Annuel</button>
+    </div></div>
+    <div class="pkg-grid">
+      <div class="card hover">
+        <h3 style="font-size:22px" data-i="p1name">Rental Management</h3>
+        <p class="muted" style="margin:12px 0" data-i="p1desc">Pour les sociétés de location qui veulent digitaliser leur flotte, leurs réservations et leur flux de location.</p>
+        <div><span class="price" data-price="49|490">€49</span> <span class="muted" data-i="perX">/ mois</span></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin:22px 0" data-i="subscribe">🔒 S'abonner</button>
+        <div id="p1feats"></div>
+      </div>
+      <div class="card card-dark hover" style="border:1.4px solid rgba(202,174,101,.5)">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3 style="font-size:22px;color:#fff" data-i="p2name">Rental Management + Business & Accounting</h3>
+          <span class="badge badge-gold" data-i="recommended">★ Recommandé</span>
+        </div>
+        <p style="color:rgba(255,255,255,.7);margin:12px 0" data-i="p2desc">Pour les sociétés qui veulent une gestion complète, avec suivi financier, facturation et rapports de management.</p>
+        <div><span class="price" style="color:#fff" data-price="89|890">€89</span> <span style="color:rgba(255,255,255,.7)" data-i="perX">/ mois</span></div>
+        <button class="btn btn-gold" style="width:100%;justify-content:center;margin:22px 0" data-i="subscribe">🔒 S'abonner</button>
+        <div style="color:var(--soft-gold);font-weight:600;font-size:13.5px;margin-bottom:12px" data-i="everythingIn">Tout ce qui est inclus dans Rental Management, plus :</div>
+        <div id="p2feats"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow" data-i="faqEye">FAQ</span>
+      <h2 data-i="faqTitle">Questions fréquentes</h2>
+    </div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" style="background:rgba(237,237,237,.4)">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div>
+        <span class="eyebrow" data-i="ctEye">Contact</span>
+        <h2 style="font-size:34px;margin:18px 0 16px" data-i="ctTitle">Demandez une démonstration</h2>
+        <p class="muted" data-i="ctSub">Laissez-nous vos coordonnées et notre équipe vous recontactera rapidement.</p>
+        <div style="margin-top:28px">
+          <div class="cline"><span class="ic">✉</span> sales@kirya.app</div>
+          <div class="cline"><span class="ic">☎</span> +32 2 000 00 00</div>
+          <div class="cline"><span class="ic">📍</span> Brussels, Belgium</div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="frow">
+          <div class="field"><label data-i="ctCompany">Nom de la société</label><input></div>
+          <div class="field"><label data-i="ctPerson">Personne de contact</label><input></div>
+        </div>
+        <div class="frow">
+          <div class="field"><label data-i="ctEmail">E-mail</label><input></div>
+          <div class="field"><label data-i="ctPhone">Téléphone</label><input></div>
+        </div>
+        <div class="field" style="margin-bottom:16px"><label data-i="ctVeh">Nombre de véhicules</label><input></div>
+        <div class="field" style="margin-bottom:24px"><label data-i="ctMsg">Message</label><textarea rows="4"></textarea></div>
+        <button class="btn btn-primary" data-i="ctCta">✈ Demander une démonstration</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="logo" style="color:#fff"><span class="mark">K</span> Kirya</div>
+        <p style="color:rgba(255,255,255,.7);max-width:320px;margin-top:16px" data-i="footTag">La plateforme premium de gestion de location de véhicules.</p>
+      </div>
+      <div class="foot-col"><h4 data-i="footProduct">Produit</h4><a data-i="navPackages">Formules</a><a data-i="navFeatures">Fonctionnalités</a><a data-i="navCompanies">Sociétés</a></div>
+      <div class="foot-col"><h4 data-i="footCompany">Société</h4><a data-i="navCustomers">Particuliers</a><a data-i="navFaq">FAQ</a><a data-i="navLogin">Connexion</a></div>
+      <div class="foot-col"><h4 data-i="footLegal">Légal</h4><a data-i="footPrivacy">Confidentialité</a><a data-i="footTerms">Conditions</a><a>Cookies</a></div>
+    </div>
+    <div class="foot-bottom"><span>© 2026 Kirya. <span data-i="footRights">Tous droits réservés.</span></span><span>sales@kirya.app</span></div>
+  </div>
+</footer>
+
+<script>
+// ---- Data (icons + feature keys) ----
+const b2bFeatures=[["🚗","fFleet"],["📅","fAvail"],["🗓","fBook"],["🔄","fFlow"],["👥","fCust"],["📄","fContract"],["🛠","fDamage"],["💳","fPay"],["🧾","fInvoice"],["📁","fDoc"],["🪪","fStaff"],["📊","fReports"]];
+const b2cBenefits=[["👤","bAccount"],["🔍","bSearch"],["💶","bPrices"],["🛡","bPay"],["✓","bVerified"],["🎫","bConfirm"],["📋","bConditions"],["👍","bReliable"],["🕘","bHistory"],["🎧","bSupport"]];
+const p1Features=["fContractD","fCheck","fDamage","fDoc","fStaff","fBasicRep"];
+const p2Features=["fAdvDash","fInvMgmt","fAccount","fRevenue","fExpense","fVat","fRecon","fBalance","fExport","fMgmtRep","fMulti","fRoles"];
+const faqKeys=[["q1","a1"],["q2","a2"],["q3","a3"],["q4","a4"],["q6","a6"],["q8","a8"]];
+
+// ---- Translations ----
+const T={
+ fr:{previewNote:"Aperçu statique HTML de l'interface Flutter Web Kirya — change de langue en haut à droite (essaie العربية pour le RTL).",
+  navCompanies:"Sociétés",navCustomers:"Particuliers",navPackages:"Formules",navFeatures:"Fonctionnalités",navFaq:"FAQ",navLogin:"Connexion",navStart:"Commencer",
+  heroBadge:"★ Plateforme de gestion de flotte",heroTitle:"La plateforme intelligente pour les sociétés de location de véhicules",heroSub:"Gérez votre flotte, automatisez vos locations et donnez à vos clients une expérience simple, sûre et transparente.",heroCta1:"Découvrir les solutions B2B",heroCta2:"Voir les formules",heroB2c:"Pour les particuliers, l'application permet de louer un véhicule facilement, en toute sécurité et avec des prix transparents.",
+  dashTitle:"Tableau de bord flotte",dashVeh:"Véhicules actifs",dashBook:"Réservations",dashRev:"Revenus",dashUti:"Utilisation",
+  trust1:"Paiement sécurisé",trust2:"Sociétés vérifiées",trust3:"Gestion digitale",trust4:"Support professionnel",
+  b2bEye:"Pour les sociétés de location",b2bTitle:"Gérez votre activité de location de manière plus professionnelle",b2bSub:"Kirya réunit votre flotte, vos réservations et vos clients dans un seul portail digital, conçu pour les professionnels de la mobilité.",b2bNote:"Cette page présente uniquement les fonctionnalités. L'ensemble des outils est disponible dans le portail protégé après abonnement.",
+  fFleet:"Gestion de flotte",fAvail:"Disponibilité des véhicules",fBook:"Vue des réservations",fFlow:"Flux de location digital",fCust:"Gestion des clients",fContract:"Gestion des contrats",fDamage:"Enregistrement des dommages",fPay:"Suivi des paiements",fInvoice:"Aperçu des factures",fDoc:"Stockage de documents",fStaff:"Accès du personnel",fReports:"Rapports et tableaux de bord",
+  b2cEye:"Pour les particuliers",b2cTitle:"Louez un véhicule en toute confiance",b2cSub:"L'application Kirya est gratuite pour les particuliers. Trouvez une voiture, réservez en ligne et profitez de prix transparents auprès de sociétés vérifiées.",b2cFree:"✓ 100% gratuit pour les particuliers",b2cCta1:"Créer un compte gratuit",b2cCta2:"Découvrir l'application",
+  bAccount:"Compte client gratuit",bSearch:"Recherche de voitures disponibles",bPrices:"Prix transparents",bPay:"Paiement en ligne sécurisé",bVerified:"Sociétés vérifiées",bConfirm:"Confirmation digitale",bConditions:"Conditions claires",bReliable:"Expérience fiable et sûre",bHistory:"Historique des réservations",bSupport:"Support",
+  pkgEye:"Formules B2B",pkgTitle:"Choisissez la formule adaptée à votre société",pkgSub:"Des prix transparents. Annulez à tout moment. Accès immédiat au portail après paiement.",pkgMonthly:"Mensuel",pkgYearly:"Annuel",perX:"/ mois",perY:"/ an",subscribe:"🔒 S'abonner",recommended:"★ Recommandé",everythingIn:"Tout ce qui est inclus dans Rental Management, plus :",
+  p1name:"Rental Management",p1desc:"Pour les sociétés de location qui veulent digitaliser leur flotte, leurs réservations et leur flux de location.",p2name:"Rental Management + Business & Accounting",p2desc:"Pour les sociétés qui veulent une gestion complète, avec suivi financier, facturation et rapports de management.",
+  fContractD:"Contrats de location digitaux",fCheck:"Flux check-in / check-out",fBasicRep:"Rapports de base",fAdvDash:"Tableau de bord avancé",fInvMgmt:"Gestion des factures",fAccount:"Aperçu comptable",fRevenue:"Rapports de revenus",fExpense:"Suivi des dépenses",fVat:"Aperçu TVA",fRecon:"Rapprochement des paiements",fBalance:"Solde client",fExport:"Exports financiers",fMgmtRep:"Rapports de management",fMulti:"Support multi-agences",fRoles:"Permissions de rôles avancées",
+  faqEye:"FAQ",faqTitle:"Questions fréquentes",
+  q1:"Comment fonctionne l'abonnement B2B ?",a1:"Vous choisissez une formule, vous payez en mensuel ou annuel via Stripe, et votre société obtient immédiatement accès au portail.",
+  q2:"Comment l'accès au portail est-il activé ?",a2:"Après un paiement réussi, votre compte société est créé ou activé automatiquement et le rôle de propriétaire vous est attribué.",
+  q3:"L'application pour particuliers est-elle gratuite ?",a3:"Oui. L'application B2C est entièrement gratuite pour les particuliers.",
+  q4:"Le paiement en ligne est-il sécurisé ?",a4:"Tous les paiements sont traités par Stripe avec un chiffrement de niveau bancaire.",
+  q6:"Puis-je annuler mon abonnement ?",a6:"Oui, vous pouvez annuler à tout moment depuis votre portail.",
+  q8:"Mes données sont-elles en sécurité ?",a8:"Toutes les données sont chiffrées et stockées de manière sécurisée et conforme.",
+  ctEye:"Contact",ctTitle:"Demandez une démonstration",ctSub:"Laissez-nous vos coordonnées et notre équipe vous recontactera rapidement.",ctCompany:"Nom de la société",ctPerson:"Personne de contact",ctEmail:"E-mail",ctPhone:"Téléphone",ctVeh:"Nombre de véhicules",ctMsg:"Message",ctCta:"✈ Demander une démonstration",
+  footTag:"La plateforme premium de gestion de location de véhicules.",footProduct:"Produit",footCompany:"Société",footLegal:"Légal",footPrivacy:"Confidentialité",footTerms:"Conditions",footRights:"Tous droits réservés."},
+
+ en:{previewNote:"Static HTML preview of the Kirya Flutter Web UI — switch language top-right (try العربية for RTL).",
+  navCompanies:"Companies",navCustomers:"Customers",navPackages:"Packages",navFeatures:"Features",navFaq:"FAQ",navLogin:"Login",navStart:"Get started",
+  heroBadge:"★ Fleet management platform",heroTitle:"The smart platform for vehicle rental companies",heroSub:"Manage your fleet, automate your rentals and give your customers a simple, safe and transparent experience.",heroCta1:"Explore B2B solutions",heroCta2:"View packages",heroB2c:"For private customers, the app makes it easy to rent a vehicle safely and with transparent prices.",
+  dashTitle:"Fleet dashboard",dashVeh:"Active vehicles",dashBook:"Bookings",dashRev:"Revenue",dashUti:"Utilization",
+  trust1:"Secure payment",trust2:"Verified companies",trust3:"Digital management",trust4:"Professional support",
+  b2bEye:"For rental companies",b2bTitle:"Run your rental business more professionally",b2bSub:"Kirya brings your fleet, bookings and customers together in one digital portal, built for mobility professionals.",b2bNote:"This page only presents the features. All tools are available inside the protected portal after subscription.",
+  fFleet:"Fleet management",fAvail:"Vehicle availability",fBook:"Booking overview",fFlow:"Digital rental flow",fCust:"Customer management",fContract:"Contract management",fDamage:"Damage registration",fPay:"Payment tracking",fInvoice:"Invoice overview",fDoc:"Document storage",fStaff:"Staff access",fReports:"Reports and dashboards",
+  b2cEye:"For private customers",b2cTitle:"Rent a vehicle with confidence",b2cSub:"The Kirya app is free for private customers. Find a car, book online and enjoy transparent prices from verified companies.",b2cFree:"✓ 100% free for private customers",b2cCta1:"Create a free account",b2cCta2:"Discover the app",
+  bAccount:"Free customer account",bSearch:"Search available cars",bPrices:"Transparent prices",bPay:"Secure online payment",bVerified:"Verified companies",bConfirm:"Digital confirmation",bConditions:"Clear conditions",bReliable:"Safe & reliable experience",bHistory:"Booking history",bSupport:"Support",
+  pkgEye:"B2B packages",pkgTitle:"Choose the package that fits your company",pkgSub:"Transparent pricing. Cancel anytime. Instant portal access after payment.",pkgMonthly:"Monthly",pkgYearly:"Yearly",perX:"/ month",perY:"/ year",subscribe:"🔒 Subscribe",recommended:"★ Recommended",everythingIn:"Everything in Rental Management, plus:",
+  p1name:"Rental Management",p1desc:"For rental companies that want to digitalize their fleet, bookings and rental flow.",p2name:"Rental Management + Business & Accounting",p2desc:"For companies that want full management, with financial tracking, invoicing and management reports.",
+  fContractD:"Digital rental contracts",fCheck:"Check-in / check-out flow",fBasicRep:"Basic reporting",fAdvDash:"Advanced dashboard",fInvMgmt:"Invoice management",fAccount:"Accounting overview",fRevenue:"Revenue reports",fExpense:"Expense tracking",fVat:"VAT overview",fRecon:"Payment reconciliation",fBalance:"Customer balance",fExport:"Financial exports",fMgmtRep:"Management reports",fMulti:"Multi-branch support",fRoles:"Advanced role permissions",
+  faqEye:"FAQ",faqTitle:"Frequently asked questions",
+  q1:"How does the B2B subscription work?",a1:"You choose a package, pay monthly or yearly via Stripe, and your company instantly gets portal access.",
+  q2:"How is portal access activated?",a2:"After a successful payment your company account is created or activated automatically and the owner role is assigned.",
+  q3:"Is the customer app free?",a3:"Yes. The B2C app is completely free for private customers.",
+  q4:"Is online payment secure?",a4:"All payments are processed by Stripe with bank-grade encryption.",
+  q6:"Can I cancel my subscription?",a6:"Yes, you can cancel anytime from your portal.",
+  q8:"Is my data safe?",a8:"All data is encrypted and stored securely and compliantly.",
+  ctEye:"Contact",ctTitle:"Request a demonstration",ctSub:"Leave your details and our team will get back to you quickly.",ctCompany:"Company name",ctPerson:"Contact person",ctEmail:"Email",ctPhone:"Phone",ctVeh:"Number of vehicles",ctMsg:"Message",ctCta:"✈ Request a demonstration",
+  footTag:"The premium vehicle rental management platform.",footProduct:"Product",footCompany:"Company",footLegal:"Legal",footPrivacy:"Privacy",footTerms:"Terms",footRights:"All rights reserved."},
+
+ nl:{previewNote:"Statische HTML-preview van de Kirya Flutter Web-interface — wissel taal rechtsboven (probeer العربية voor RTL).",
+  navCompanies:"Bedrijven",navCustomers:"Particulieren",navPackages:"Pakketten",navFeatures:"Functies",navFaq:"FAQ",navLogin:"Inloggen",navStart:"Aan de slag",
+  heroBadge:"★ Platform voor wagenparkbeheer",heroTitle:"Het slimme platform voor voertuigverhuurbedrijven",heroSub:"Beheer uw vloot, automatiseer uw verhuur en geef uw klanten een eenvoudige, veilige en transparante ervaring.",heroCta1:"Ontdek de B2B-oplossingen",heroCta2:"Bekijk de pakketten",heroB2c:"Voor particulieren maakt de app het eenvoudig om veilig en met transparante prijzen een voertuig te huren.",
+  dashTitle:"Vlootdashboard",dashVeh:"Actieve voertuigen",dashBook:"Boekingen",dashRev:"Omzet",dashUti:"Bezetting",
+  trust1:"Veilige betaling",trust2:"Geverifieerde bedrijven",trust3:"Digitaal beheer",trust4:"Professionele ondersteuning",
+  b2bEye:"Voor verhuurbedrijven",b2bTitle:"Beheer uw verhuuractiviteit professioneler",b2bSub:"Kirya brengt uw vloot, boekingen en klanten samen in één digitaal portaal, gebouwd voor mobiliteitsprofessionals.",b2bNote:"Deze pagina toont enkel de functies. Alle tools zijn beschikbaar in het beveiligde portaal na een abonnement.",
+  fFleet:"Vlootbeheer",fAvail:"Beschikbaarheid",fBook:"Boekingsoverzicht",fFlow:"Digitale verhuurflow",fCust:"Klantenbeheer",fContract:"Contractbeheer",fDamage:"Schaderegistratie",fPay:"Betalingsopvolging",fInvoice:"Factuuroverzicht",fDoc:"Documentopslag",fStaff:"Personeelstoegang",fReports:"Rapporten en dashboards",
+  b2cEye:"Voor particulieren",b2cTitle:"Huur een voertuig met vertrouwen",b2cSub:"De Kirya-app is gratis voor particulieren. Vind een auto, boek online en geniet van transparante prijzen bij geverifieerde bedrijven.",b2cFree:"✓ 100% gratis voor particulieren",b2cCta1:"Maak een gratis account",b2cCta2:"Ontdek de app",
+  bAccount:"Gratis klantaccount",bSearch:"Zoek beschikbare auto's",bPrices:"Transparante prijzen",bPay:"Veilige online betaling",bVerified:"Geverifieerde bedrijven",bConfirm:"Digitale bevestiging",bConditions:"Duidelijke voorwaarden",bReliable:"Veilige en betrouwbare ervaring",bHistory:"Boekingsgeschiedenis",bSupport:"Ondersteuning",
+  pkgEye:"B2B-pakketten",pkgTitle:"Kies het pakket dat bij uw bedrijf past",pkgSub:"Transparante prijzen. Opzegbaar wanneer u wilt. Directe portaaltoegang na betaling.",pkgMonthly:"Maandelijks",pkgYearly:"Jaarlijks",perX:"/ maand",perY:"/ jaar",subscribe:"🔒 Abonneren",recommended:"★ Aanbevolen",everythingIn:"Alles uit Rental Management, plus:",
+  p1name:"Rental Management",p1desc:"Voor verhuurbedrijven die hun vloot, boekingen en verhuurflow willen digitaliseren.",p2name:"Rental Management + Business & Accounting",p2desc:"Voor bedrijven die volledig beheer willen, met financiële opvolging, facturatie en managementrapporten.",
+  fContractD:"Digitale huurcontracten",fCheck:"Check-in / check-out flow",fBasicRep:"Basisrapportage",fAdvDash:"Geavanceerd dashboard",fInvMgmt:"Factuurbeheer",fAccount:"Boekhoudkundig overzicht",fRevenue:"Omzetrapporten",fExpense:"Uitgavenopvolging",fVat:"Btw-overzicht",fRecon:"Betalingsreconciliatie",fBalance:"Klantsaldo",fExport:"Financiële exports",fMgmtRep:"Managementrapporten",fMulti:"Multi-vestiging",fRoles:"Geavanceerde rolrechten",
+  faqEye:"FAQ",faqTitle:"Veelgestelde vragen",
+  q1:"Hoe werkt het B2B-abonnement?",a1:"U kiest een pakket, betaalt maandelijks of jaarlijks via Stripe, en uw bedrijf krijgt direct portaaltoegang.",
+  q2:"Hoe wordt portaaltoegang geactiveerd?",a2:"Na een geslaagde betaling wordt uw bedrijfsaccount automatisch aangemaakt of geactiveerd en wordt de eigenaarsrol toegekend.",
+  q3:"Is de app voor particulieren gratis?",a3:"Ja. De B2C-app is volledig gratis voor particulieren.",
+  q4:"Is online betalen veilig?",a4:"Alle betalingen worden verwerkt door Stripe met versleuteling op bankniveau.",
+  q6:"Kan ik mijn abonnement opzeggen?",a6:"Ja, u kunt op elk moment opzeggen via uw portaal.",
+  q8:"Zijn mijn gegevens veilig?",a8:"Alle gegevens worden versleuteld en veilig en conform bewaard.",
+  ctEye:"Contact",ctTitle:"Vraag een demonstratie aan",ctSub:"Laat uw gegevens achter en ons team neemt snel contact met u op.",ctCompany:"Bedrijfsnaam",ctPerson:"Contactpersoon",ctEmail:"E-mail",ctPhone:"Telefoon",ctVeh:"Aantal voertuigen",ctMsg:"Bericht",ctCta:"✈ Vraag een demonstratie aan",
+  footTag:"Het premium platform voor voertuigverhuurbeheer.",footProduct:"Product",footCompany:"Bedrijf",footLegal:"Juridisch",footPrivacy:"Privacy",footTerms:"Voorwaarden",footRights:"Alle rechten voorbehouden."},
+
+ de:{previewNote:"Statische HTML-Vorschau der Kirya Flutter-Web-Oberfläche — Sprache oben rechts wechseln (العربية für RTL).",
+  navCompanies:"Unternehmen",navCustomers:"Privatkunden",navPackages:"Pakete",navFeatures:"Funktionen",navFaq:"FAQ",navLogin:"Anmelden",navStart:"Loslegen",
+  heroBadge:"★ Plattform für Flottenmanagement",heroTitle:"Die intelligente Plattform für Fahrzeugvermietungen",heroSub:"Verwalten Sie Ihre Flotte, automatisieren Sie Vermietungen und bieten Sie ein einfaches, sicheres und transparentes Erlebnis.",heroCta1:"B2B-Lösungen entdecken",heroCta2:"Pakete ansehen",heroB2c:"Für Privatkunden macht die App das Mieten eines Fahrzeugs einfach, sicher und mit transparenten Preisen.",
+  dashTitle:"Flotten-Dashboard",dashVeh:"Aktive Fahrzeuge",dashBook:"Buchungen",dashRev:"Umsatz",dashUti:"Auslastung",
+  trust1:"Sichere Zahlung",trust2:"Verifizierte Unternehmen",trust3:"Digitale Verwaltung",trust4:"Professioneller Support",
+  b2bEye:"Für Vermietungsunternehmen",b2bTitle:"Führen Sie Ihr Vermietungsgeschäft professioneller",b2bSub:"Kirya vereint Flotte, Buchungen und Kunden in einem digitalen Portal – für Mobilitätsprofis.",b2bNote:"Diese Seite zeigt nur die Funktionen. Alle Werkzeuge sind nach dem Abonnement im geschützten Portal verfügbar.",
+  fFleet:"Flottenmanagement",fAvail:"Fahrzeugverfügbarkeit",fBook:"Buchungsübersicht",fFlow:"Digitaler Mietablauf",fCust:"Kundenverwaltung",fContract:"Vertragsverwaltung",fDamage:"Schadenserfassung",fPay:"Zahlungsverfolgung",fInvoice:"Rechnungsübersicht",fDoc:"Dokumentenspeicher",fStaff:"Mitarbeiterzugang",fReports:"Berichte und Dashboards",
+  b2cEye:"Für Privatkunden",b2cTitle:"Mieten Sie ein Fahrzeug mit Vertrauen",b2cSub:"Die Kirya-App ist für Privatkunden kostenlos. Finden Sie ein Auto, buchen Sie online und profitieren Sie von transparenten Preisen.",b2cFree:"✓ 100% kostenlos für Privatkunden",b2cCta1:"Kostenloses Konto erstellen",b2cCta2:"App entdecken",
+  bAccount:"Kostenloses Kundenkonto",bSearch:"Verfügbare Autos suchen",bPrices:"Transparente Preise",bPay:"Sichere Online-Zahlung",bVerified:"Verifizierte Unternehmen",bConfirm:"Digitale Bestätigung",bConditions:"Klare Bedingungen",bReliable:"Sicheres & zuverlässiges Erlebnis",bHistory:"Buchungsverlauf",bSupport:"Support",
+  pkgEye:"B2B-Pakete",pkgTitle:"Wählen Sie das passende Paket",pkgSub:"Transparente Preise. Jederzeit kündbar. Sofortiger Portalzugang nach Zahlung.",pkgMonthly:"Monatlich",pkgYearly:"Jährlich",perX:"/ Monat",perY:"/ Jahr",subscribe:"🔒 Abonnieren",recommended:"★ Empfohlen",everythingIn:"Alles aus Rental Management, plus:",
+  p1name:"Rental Management",p1desc:"Für Vermieter, die Flotte, Buchungen und Mietablauf digitalisieren möchten.",p2name:"Rental Management + Business & Accounting",p2desc:"Für Unternehmen mit voller Verwaltung: Finanzen, Rechnungen und Management-Berichte.",
+  fContractD:"Digitale Mietverträge",fCheck:"Check-in / Check-out",fBasicRep:"Basis-Berichte",fAdvDash:"Erweitertes Dashboard",fInvMgmt:"Rechnungsverwaltung",fAccount:"Buchhaltungsübersicht",fRevenue:"Umsatzberichte",fExpense:"Ausgabenverfolgung",fVat:"MwSt-Übersicht",fRecon:"Zahlungsabgleich",fBalance:"Kundensaldo",fExport:"Finanzexporte",fMgmtRep:"Management-Berichte",fMulti:"Multi-Filial",fRoles:"Erweiterte Rollenrechte",
+  faqEye:"FAQ",faqTitle:"Häufige Fragen",
+  q1:"Wie funktioniert das B2B-Abo?",a1:"Sie wählen ein Paket, zahlen monatlich oder jährlich über Stripe, und Ihr Unternehmen erhält sofort Portalzugang.",
+  q2:"Wie wird der Portalzugang aktiviert?",a2:"Nach erfolgreicher Zahlung wird Ihr Konto automatisch erstellt oder aktiviert und die Eigentümerrolle zugewiesen.",
+  q3:"Ist die Kunden-App kostenlos?",a3:"Ja. Die B2C-App ist für Privatkunden völlig kostenlos.",
+  q4:"Ist die Online-Zahlung sicher?",a4:"Alle Zahlungen werden von Stripe mit Verschlüsselung auf Bankniveau verarbeitet.",
+  q6:"Kann ich mein Abo kündigen?",a6:"Ja, Sie können jederzeit über Ihr Portal kündigen.",
+  q8:"Sind meine Daten sicher?",a8:"Alle Daten werden verschlüsselt und sicher sowie konform gespeichert.",
+  ctEye:"Kontakt",ctTitle:"Demonstration anfragen",ctSub:"Hinterlassen Sie Ihre Daten und unser Team meldet sich schnell.",ctCompany:"Firmenname",ctPerson:"Ansprechpartner",ctEmail:"E-Mail",ctPhone:"Telefon",ctVeh:"Anzahl Fahrzeuge",ctMsg:"Nachricht",ctCta:"✈ Demonstration anfragen",
+  footTag:"Die Premium-Plattform für Fahrzeugvermietungsverwaltung.",footProduct:"Produkt",footCompany:"Unternehmen",footLegal:"Rechtliches",footPrivacy:"Datenschutz",footTerms:"AGB",footRights:"Alle Rechte vorbehalten."},
+
+ it:{previewNote:"Anteprima HTML statica dell'interfaccia Kirya Flutter Web — cambia lingua in alto a destra (prova العربية per l'RTL).",
+  navCompanies:"Società",navCustomers:"Privati",navPackages:"Piani",navFeatures:"Funzionalità",navFaq:"FAQ",navLogin:"Accedi",navStart:"Inizia",
+  heroBadge:"★ Piattaforma di gestione flotte",heroTitle:"La piattaforma intelligente per le società di noleggio veicoli",heroSub:"Gestisci la flotta, automatizza i noleggi e offri ai clienti un'esperienza semplice, sicura e trasparente.",heroCta1:"Scopri le soluzioni B2B",heroCta2:"Vedi i piani",heroB2c:"Per i privati, l'app rende semplice noleggiare un veicolo in modo sicuro e con prezzi trasparenti.",
+  dashTitle:"Dashboard flotta",dashVeh:"Veicoli attivi",dashBook:"Prenotazioni",dashRev:"Ricavi",dashUti:"Utilizzo",
+  trust1:"Pagamento sicuro",trust2:"Società verificate",trust3:"Gestione digitale",trust4:"Supporto professionale",
+  b2bEye:"Per le società di noleggio",b2bTitle:"Gestisci la tua attività di noleggio in modo più professionale",b2bSub:"Kirya riunisce flotta, prenotazioni e clienti in un unico portale digitale, per i professionisti della mobilità.",b2bNote:"Questa pagina mostra solo le funzionalità. Tutti gli strumenti sono nel portale protetto dopo l'abbonamento.",
+  fFleet:"Gestione della flotta",fAvail:"Disponibilità veicoli",fBook:"Panoramica prenotazioni",fFlow:"Flusso di noleggio digitale",fCust:"Gestione clienti",fContract:"Gestione contratti",fDamage:"Registrazione danni",fPay:"Monitoraggio pagamenti",fInvoice:"Panoramica fatture",fDoc:"Archiviazione documenti",fStaff:"Accesso personale",fReports:"Report e dashboard",
+  b2cEye:"Per i privati",b2cTitle:"Noleggia un veicolo in tutta tranquillità",b2cSub:"L'app Kirya è gratuita per i privati. Trova un'auto, prenota online e approfitta di prezzi trasparenti da società verificate.",b2cFree:"✓ 100% gratuita per i privati",b2cCta1:"Crea un account gratuito",b2cCta2:"Scopri l'app",
+  bAccount:"Account cliente gratuito",bSearch:"Cerca auto disponibili",bPrices:"Prezzi trasparenti",bPay:"Pagamento online sicuro",bVerified:"Società verificate",bConfirm:"Conferma digitale",bConditions:"Condizioni chiare",bReliable:"Esperienza sicura e affidabile",bHistory:"Cronologia prenotazioni",bSupport:"Supporto",
+  pkgEye:"Piani B2B",pkgTitle:"Scegli il piano adatto alla tua società",pkgSub:"Prezzi trasparenti. Disdici quando vuoi. Accesso immediato al portale dopo il pagamento.",pkgMonthly:"Mensile",pkgYearly:"Annuale",perX:"/ mese",perY:"/ anno",subscribe:"🔒 Abbonati",recommended:"★ Consigliato",everythingIn:"Tutto ciò che è incluso in Rental Management, più:",
+  p1name:"Rental Management",p1desc:"Per le società che vogliono digitalizzare flotta, prenotazioni e flusso di noleggio.",p2name:"Rental Management + Business & Accounting",p2desc:"Per le società che vogliono una gestione completa, con finanza, fatturazione e report.",
+  fContractD:"Contratti di noleggio digitali",fCheck:"Flusso check-in / check-out",fBasicRep:"Report di base",fAdvDash:"Dashboard avanzata",fInvMgmt:"Gestione fatture",fAccount:"Panoramica contabile",fRevenue:"Report ricavi",fExpense:"Monitoraggio spese",fVat:"Panoramica IVA",fRecon:"Riconciliazione pagamenti",fBalance:"Saldo cliente",fExport:"Export finanziari",fMgmtRep:"Report di management",fMulti:"Multi-filiale",fRoles:"Permessi avanzati",
+  faqEye:"FAQ",faqTitle:"Domande frequenti",
+  q1:"Come funziona l'abbonamento B2B?",a1:"Scegli un piano, paghi mensilmente o annualmente via Stripe, e la tua società ottiene subito l'accesso al portale.",
+  q2:"Come viene attivato l'accesso al portale?",a2:"Dopo un pagamento riuscito, il tuo account aziendale viene creato o attivato automaticamente e viene assegnato il ruolo di titolare.",
+  q3:"L'app per i clienti è gratuita?",a3:"Sì. L'app B2C è completamente gratuita per i privati.",
+  q4:"Il pagamento online è sicuro?",a4:"Tutti i pagamenti sono gestiti da Stripe con crittografia di livello bancario.",
+  q6:"Posso disdire l'abbonamento?",a6:"Sì, puoi disdire in qualsiasi momento dal tuo portale.",
+  q8:"I miei dati sono al sicuro?",a8:"Tutti i dati sono crittografati e archiviati in modo sicuro e conforme.",
+  ctEye:"Contatti",ctTitle:"Richiedi una dimostrazione",ctSub:"Lascia i tuoi dati e il nostro team ti ricontatterà rapidamente.",ctCompany:"Nome della società",ctPerson:"Persona di contatto",ctEmail:"E-mail",ctPhone:"Telefono",ctVeh:"Numero di veicoli",ctMsg:"Messaggio",ctCta:"✈ Richiedi una dimostrazione",
+  footTag:"La piattaforma premium per la gestione del noleggio veicoli.",footProduct:"Prodotto",footCompany:"Azienda",footLegal:"Legale",footPrivacy:"Privacy",footTerms:"Termini",footRights:"Tutti i diritti riservati."},
+
+ ar:{previewNote:"معاينة HTML ثابتة لواجهة كيريا (Flutter Web) — بدّل اللغة من أعلى اليمين (جرّب العربية لاتجاه RTL).",
+  navCompanies:"الشركات",navCustomers:"الأفراد",navPackages:"الباقات",navFeatures:"المميزات",navFaq:"الأسئلة",navLogin:"تسجيل الدخول",navStart:"ابدأ الآن",
+  heroBadge:"★ منصة إدارة الأسطول",heroTitle:"المنصة الذكية لشركات تأجير المركبات",heroSub:"أدِر أسطولك، وأتمت عمليات التأجير، وامنح عملاءك تجربة بسيطة وآمنة وشفافة.",heroCta1:"اكتشف حلول الأعمال",heroCta2:"عرض الباقات",heroB2c:"بالنسبة للأفراد، يتيح التطبيق استئجار مركبة بسهولة وأمان وبأسعار شفافة.",
+  dashTitle:"لوحة تحكم الأسطول",dashVeh:"المركبات النشطة",dashBook:"الحجوزات",dashRev:"الإيرادات",dashUti:"الاستخدام",
+  trust1:"دفع آمن",trust2:"شركات موثقة",trust3:"إدارة رقمية",trust4:"دعم احترافي",
+  b2bEye:"لشركات التأجير",b2bTitle:"أدِر نشاط التأجير الخاص بك باحترافية أكبر",b2bSub:"تجمع كيريا أسطولك وحجوزاتك وعملاءك في بوابة رقمية واحدة، مصممة لمحترفي التنقل.",b2bNote:"تعرض هذه الصفحة المميزات فقط. تتوفر جميع الأدوات داخل البوابة المحمية بعد الاشتراك.",
+  fFleet:"إدارة الأسطول",fAvail:"توفر المركبات",fBook:"نظرة عامة على الحجوزات",fFlow:"تدفق تأجير رقمي",fCust:"إدارة العملاء",fContract:"إدارة العقود",fDamage:"تسجيل الأضرار",fPay:"تتبع المدفوعات",fInvoice:"نظرة عامة على الفواتير",fDoc:"تخزين المستندات",fStaff:"وصول الموظفين",fReports:"التقارير ولوحات المعلومات",
+  b2cEye:"للأفراد",b2cTitle:"استأجر مركبة بكل ثقة",b2cSub:"تطبيق كيريا مجاني للأفراد. ابحث عن سيارة، واحجز عبر الإنترنت، واستمتع بأسعار شفافة من شركات موثقة.",b2cFree:"✓ مجاني 100% للأفراد",b2cCta1:"إنشاء حساب مجاني",b2cCta2:"اكتشف التطبيق",
+  bAccount:"حساب عميل مجاني",bSearch:"البحث عن السيارات المتاحة",bPrices:"أسعار شفافة",bPay:"دفع إلكتروني آمن",bVerified:"شركات موثقة",bConfirm:"تأكيد رقمي",bConditions:"شروط واضحة",bReliable:"تجربة آمنة وموثوقة",bHistory:"سجل الحجوزات",bSupport:"الدعم",
+  pkgEye:"باقات الأعمال",pkgTitle:"اختر الباقة المناسبة لشركتك",pkgSub:"أسعار شفافة. ألغِ في أي وقت. وصول فوري إلى البوابة بعد الدفع.",pkgMonthly:"شهري",pkgYearly:"سنوي",perX:"/ شهر",perY:"/ سنة",subscribe:"🔒 اشترك",recommended:"★ موصى به",everythingIn:"كل ما في Rental Management، بالإضافة إلى:",
+  p1name:"Rental Management",p1desc:"للشركات التي ترغب في رقمنة أسطولها وحجوزاتها وتدفق التأجير.",p2name:"Rental Management + Business & Accounting",p2desc:"للشركات التي تريد إدارة كاملة مع المتابعة المالية والفوترة وتقارير الإدارة.",
+  fContractD:"عقود تأجير رقمية",fCheck:"تدفق الاستلام / التسليم",fBasicRep:"تقارير أساسية",fAdvDash:"لوحة تحكم متقدمة",fInvMgmt:"إدارة الفواتير",fAccount:"نظرة محاسبية",fRevenue:"تقارير الإيرادات",fExpense:"تتبع المصروفات",fVat:"نظرة على الضريبة",fRecon:"تسوية المدفوعات",fBalance:"رصيد العميل",fExport:"تصدير مالي",fMgmtRep:"تقارير الإدارة",fMulti:"دعم متعدد الفروع",fRoles:"صلاحيات أدوار متقدمة",
+  faqEye:"الأسئلة الشائعة",faqTitle:"الأسئلة المتكررة",
+  q1:"كيف يعمل اشتراك الأعمال؟",a1:"تختار باقة، وتدفع شهريًا أو سنويًا عبر Stripe، وتحصل شركتك فورًا على الوصول إلى البوابة.",
+  q2:"كيف يتم تفعيل الوصول إلى البوابة؟",a2:"بعد الدفع الناجح، يتم إنشاء أو تفعيل حساب شركتك تلقائيًا ويُعيَّن دور المالك.",
+  q3:"هل تطبيق العملاء مجاني؟",a3:"نعم. تطبيق الأفراد مجاني تمامًا للأفراد.",
+  q4:"هل الدفع عبر الإنترنت آمن؟",a4:"تتم معالجة جميع المدفوعات بواسطة Stripe بتشفير على مستوى البنوك.",
+  q6:"هل يمكنني إلغاء اشتراكي؟",a6:"نعم، يمكنك الإلغاء في أي وقت من بوابتك.",
+  q8:"هل بياناتي آمنة؟",a8:"تُشفَّر جميع البيانات وتُخزَّن بشكل آمن ومتوافق.",
+  ctEye:"اتصل بنا",ctTitle:"اطلب عرضًا توضيحيًا",ctSub:"اترك بياناتك وسيتواصل معك فريقنا سريعًا.",ctCompany:"اسم الشركة",ctPerson:"الشخص المسؤول",ctEmail:"البريد الإلكتروني",ctPhone:"الهاتف",ctVeh:"عدد المركبات",ctMsg:"الرسالة",ctCta:"✈ اطلب عرضًا توضيحيًا",
+  footTag:"المنصة المتميزة لإدارة تأجير المركبات.",footProduct:"المنتج",footCompany:"الشركة",footLegal:"قانوني",footPrivacy:"الخصوصية",footTerms:"الشروط",footRights:"جميع الحقوق محفوظة."}
+};
+
+let lang="fr", yearly=false;
+const $ = s=>document.querySelector(s), $$=s=>document.querySelectorAll(s);
+
+function buildGrids(){
+  $("#b2bGrid").innerHTML=b2bFeatures.map(f=>`<div class="card hover feature"><div class="ic">${f[0]}</div><strong data-i="${f[1]}"></strong></div>`).join("");
+  $("#b2cList").innerHTML=b2cBenefits.map(f=>`<div class="b2c-item"><span class="ic">${f[0]}</span><span data-i="${f[1]}"></span></div>`).join("");
+  $("#p1feats").innerHTML=p1Features.map(k=>`<div class="feat-line"><span class="ic">✔</span><span data-i="${k}"></span></div>`).join("");
+  $("#p2feats").innerHTML=p2Features.map(k=>`<div class="feat-line"><span class="ic">✔</span><span data-i="${k}"></span></div>`).join("");
+  $("#faq").innerHTML=faqKeys.map(([q,a])=>`<div class="faq-item"><div class="faq-q"><span data-i="${q}"></span><span>＋</span></div><div class="faq-a"><span data-i="${a}"></span></div></div>`).join("");
+  const colors=["var(--teal)","var(--dark-gold)"];const bars=[.4,.65,.5,.8,.6,.9,.75];
+  $("#chart").innerHTML=bars.map((b,i)=>`<div class="bar" style="height:${b*60}px;background:linear-gradient(180deg,${i%2?'var(--soft-gold)':'var(--mint)'},${colors[i%2]})"></div>`).join("");
+}
+function apply(){
+  const d=T[lang];
+  $$("[data-i]").forEach(el=>{const k=el.getAttribute("data-i"); if(d[k]!=null) el.textContent=d[k];});
+  // pricing
+  $$("[data-price]").forEach(el=>{const [m,y]=el.getAttribute("data-price").split("|"); el.textContent="€"+(yearly?y:m);});
+  $$("[data-i='perX']").forEach(el=>{el.textContent=yearly?d.perY:d.perX;});
+  document.body.classList.toggle("rtl",lang==="ar");
+  document.documentElement.lang=lang;
+  document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+}
+buildGrids();
+apply();
+$("#langSel").addEventListener("change",e=>{lang=e.target.value;apply();});
+$("#tgMonthly").addEventListener("click",()=>{yearly=false;$("#tgMonthly").classList.add("active");$("#tgYearly").classList.remove("active");apply();});
+$("#tgYearly").addEventListener("click",()=>{yearly=true;$("#tgYearly").classList.add("active");$("#tgMonthly").classList.remove("active");apply();});
+$$(".faq-q").forEach(q=>q.addEventListener("click",()=>q.parentElement.classList.toggle("open")));
+</script>
+</body>
+</html>
