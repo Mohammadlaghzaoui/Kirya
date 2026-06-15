@@ -10,7 +10,7 @@ import 'repository_providers.dart';
 /// Bumped to force dependent providers to refetch after a mutation.
 final dataRevisionProvider = StateProvider<int>((ref) => 0);
 
-void bumpRevision(Ref ref) =>
+void bumpRevision(WidgetRef ref) =>
     ref.read(dataRevisionProvider.notifier).state++;
 
 final activePackagesProvider = FutureProvider<List<PackageModel>>((ref) {

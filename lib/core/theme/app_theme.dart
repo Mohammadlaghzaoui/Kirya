@@ -46,7 +46,7 @@ class AppTheme {
         scrolledUnderElevation: 0,
         foregroundColor: AppColors.textDark,
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: AppColors.surface,
         elevation: 0,
         shape: RoundedRectangleBorder(
