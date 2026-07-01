@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Kirya</title>
+  <meta name="description" content="How Kirya collects, uses and protects your personal data." />
+  <link rel="icon" href="assets/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="bg-orbs"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+
+  <header class="nav scrolled">
+    <div class="container nav-inner">
+      <a href="index.html" class="brand"><img src="assets/logo.png" alt="Kirya" /> Kirya</a>
+      <nav class="nav-links">
+        <a href="index.html#about" data-i18n="nav.about">About</a>
+        <a href="index.html#vendor" data-i18n="nav.vendor">Become a Vendor</a>
+        <a href="index.html#contact" data-i18n="nav.contact">Contact</a>
+        <a href="index.html#download" class="nav-cta" data-i18n="nav.cta">Get the app</a>
+      </nav>
+      <div class="nav-right">
+        <div class="lang" data-lang-menu>
+          <button class="lang-toggle" data-lang-toggle aria-label="Language">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 010 18M12 3a15 15 0 000 18"/></svg>
+            <span data-lang-label>FR</span>
+          </button>
+          <div class="lang-menu">
+            <button data-set-lang="en">English</button>
+            <button data-set-lang="fr">Français</button>
+            <button data-set-lang="nl">Nederlands</button>
+            <button data-set-lang="ar">العربية</button>
+          </div>
+        </div>
+        <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <article class="legal" data-legal="privacy_policy">
+      <h1 id="legal-title">Privacy Policy</h1>
+      <div id="legal-body">
+        <!-- Fallback content; replaced by the live Firestore version when available -->
+        <p>This Privacy Policy explains how <strong>Kirya</strong> collects, uses, shares and protects your personal data when you use the Kirya app and website. By using the Service you agree to this Policy.</p>
+        <h2>Information we collect</h2>
+        <p>Account details, driver-license information you provide for verification, booking and payment data (cards processed securely by Stripe — we never store full card numbers), approximate location with your permission, and device/usage data.</p>
+        <h2>How we use it</h2>
+        <p>To provide the Service, verify identity, prevent fraud, communicate with you, improve and secure Kirya, and comply with the law.</p>
+        <h2>Your rights</h2>
+        <p>You can access, correct, export or delete your data. Contact <a href="mailto:privacy@kirya.eu">privacy@kirya.eu</a> or delete your account in the app.</p>
+        <h2>Contact</h2>
+        <p>Questions? Email <a href="mailto:privacy@kirya.eu">privacy@kirya.eu</a> — Kirya, Casablanca, Morocco · +32 472 23 09 20.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="foot-bottom" style="border:0;margin-top:0">
+        <span>© <span id="year">2026</span> Kirya. <span data-i18n="foot.rights">All rights reserved.</span></span>
+        <span><a href="index.html" style="color:var(--gold-light)">← Home</a> · <a href="terms.html" style="color:var(--gold-light)" data-i18n="foot.terms">Terms of Service</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="assets/js/firebase-config.js"></script>
+  <script src="assets/js/i18n.js"></script>
+  <script src="assets/js/legal.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
